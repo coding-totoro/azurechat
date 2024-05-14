@@ -42,7 +42,8 @@
       },
       "extensions": ["shardulm94.trailing-spaces"]
     }
-  }
+  },
+  "postCreateCommand": "nvm install 18.17"
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [3000],

@@ -15,7 +15,7 @@ interface ChatMenuProps {
 export const ChatMenu: FC<ChatMenuProps> = (props) => {
   const menuItemsGrouped = GroupChatThreadByType(props.menuItems);
   return (
-    <div className="px-3 flex flex-col gap-8 overflow-hidden">
+    <div className="flex flex-col px-3 gap-8 overflow-hidden">
       {Object.entries(menuItemsGrouped).map(
         ([groupName, groupItems], index) => (
           <ChatGroup key={index} title={groupName}>
@@ -48,17 +48,17 @@ export const GroupChatThreadByType = (menuItems: Array<ChatThreadModel>) => {
     if (el.bookmarked) {
       groupedMenuItems.push({
         ...el,
-        groupName: "Bookmarked",
+        groupName: "Favorites:",
       });
     } else if (new Date(el.lastMessageAt) > sevenDaysAgo) {
       groupedMenuItems.push({
         ...el,
-        groupName: "Past 7 days",
+        groupName: "Recent:",
       });
     } else {
       groupedMenuItems.push({
         ...el,
-        groupName: "Previous",
+        groupName: "History:",
       });
     }
   });
@@ -72,9 +72,9 @@ export const GroupChatThreadByType = (menuItems: Array<ChatThreadModel>) => {
   }, {} as Record<MenuItemsGroupName, Array<MenuItemsGroup>>);
 
   const records: Record<MenuItemsGroupName, Array<MenuItemsGroup>> = {
-    Bookmarked: menuItemsGrouped["Bookmarked"]?.sort(sortByTimestamp),
-    "Past 7 days": menuItemsGrouped["Past 7 days"]?.sort(sortByTimestamp),
-    Previous: menuItemsGrouped["Previous"]?.sort(sortByTimestamp),
+    "Favorites:": menuItemsGrouped["Favorites:"]?.sort(sortByTimestamp),
+    "Recent:": menuItemsGrouped["Recent:"]?.sort(sortByTimestamp),
+    "History:": menuItemsGrouped["History:"]?.sort(sortByTimestamp),
   };
 
   return records;

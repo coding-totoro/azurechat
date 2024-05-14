@@ -4,7 +4,7 @@ import { NewChat } from "./new-chat";
 
 export const ChatMenuHeader = () => {
   return (
-    <div className="flex p-2 px-3 justify-end">
+    <div className="flex p-2 px-4 pb-6 justify-center items-end">
       <form action={CreateChatAndRedirect} className="flex gap-2 pr-3">
         <NewChat />
         <ChatContextMenu />

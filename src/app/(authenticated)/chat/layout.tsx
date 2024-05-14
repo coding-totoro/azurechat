@@ -30,10 +30,10 @@ export default async function RootLayout({
     <div className={cn("flex flex-1 items-stretch")}>
       <div className="flex-1 flex">
         <MenuTray>
-          <ChatMenuHeader />
-          <ScrollArea>
+          <ScrollArea className="h-full">
             <ChatMenu menuItems={chatHistoryResponse.response} />
           </ScrollArea>
+          <ChatMenuHeader />
         </MenuTray>
         {children}
       </div>
