@@ -20,16 +20,16 @@ export const CreatePrompt = async (
   try {
     const user = await getCurrentUser();
 
-    if (!user.isAdmin) {
-      return {
-        status: "UNAUTHORIZED",
-        errors: [
-          {
-            message: `Unable to create prompt`,
-          },
-        ],
-      };
-    }
+    // if (!user.isAdmin) {
+    //   return {
+    //     status: "UNAUTHORIZED",
+    //     errors: [
+    //       {
+    //         message: `Unable to create prompt`,
+    //       },
+    //     ],
+    //   };
+    // }
 
     const modelToSave: PromptModel = {
       id: uniqueId(),
@@ -119,9 +119,9 @@ export const EnsurePromptOperation = async (
   const currentUser = await getCurrentUser();
 
   if (promptResponse.status === "OK") {
-    if (currentUser.isAdmin) {
+    // if (currentUser.isAdmin) {
       return promptResponse;
-    }
+    // }
   }
 
   return {
@@ -227,7 +227,7 @@ export const UpsertPrompt = async (
         ...prompt,
         name: promptInput.name,
         description: promptInput.description,
-        isPublished: user.isAdmin
+        isPublished: user
           ? promptInput.isPublished
           : prompt.isPublished,
         createdAt: new Date(),
