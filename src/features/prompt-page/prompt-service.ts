@@ -139,18 +139,19 @@ export const DeletePrompt = async (
 ): Promise<ServerActionResponse<PromptModel>> => {
   try {
     const promptResponse = await EnsurePromptOperation(promptId);
+    const currentUser = await getCurrentUser();
+    if (currentUser.isAdmin) {
+      if (promptResponse.status === "OK") {
+        const { resource: deletedPrompt } = await ConfigContainer()
+          .item(promptId, promptResponse.response.userId)
+          .delete();
 
-    if (promptResponse.status === "OK") {
-      const { resource: deletedPrompt } = await ConfigContainer()
-        .item(promptId, promptResponse.response.userId)
-        .delete();
-
-      return {
-        status: "OK",
-        response: deletedPrompt,
+        return {
+          status: "OK",
+          response: deletedPrompt,
+        };
       };
     }
-
     return promptResponse;
   } catch (error) {
     return {
